@@ -1,33 +1,37 @@
 'use client';
 
-import React, { useEffect } from 'react';
-import Image from 'next/image'; 
+import React, { useEffect, useState } from 'react';
+import Image from 'next/image';
 
 const Hero: React.FC = () => {
-  useEffect(() => {
-    const heroImage = document.querySelector('.hero') as HTMLElement;
-    let lastScrollY = window.scrollY;
+  const [backgroundPosition, setBackgroundPosition] = useState<string>('center 0px');
 
-    window.addEventListener('scroll', () => {
+  useEffect(() => {
+    const handleScroll = () => {
       const scrollY = window.scrollY;
       const speed = 0.5;
       const yPos = -(scrollY * speed);
-      heroImage.style.backgroundPosition = `center ${yPos}px`;
-      lastScrollY = scrollY;
-    });
+      setBackgroundPosition(`center ${yPos}px`);
+    };
 
-    const heroContent = document.querySelector('.hero-content') as HTMLElement;
-    heroContent.style.opacity = '0';
-    heroContent.style.transform = 'translateY(20px)';
-    setTimeout(() => {
-      heroContent.style.transition = 'opacity 1s ease-out, transform 1s ease-out';
-      heroContent.style.opacity = '1';
-      heroContent.style.transform = 'translateY(0)';
-    }, 300);
+    handleScroll();
+
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
   }, []);
 
   return (
-    <section id="home" className="hero h-screen flex items-center justify-center bg-cover bg-center relative overflow-hidden" style={{ backgroundImage: "linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('/img/ACOM-Guardian_Gorilla-AT-GATE-02.jpg')" }}>
+    <section
+      id="home"
+      className="hero h-screen flex items-center justify-center bg-cover bg-center relative overflow-hidden"
+      style={{
+        backgroundImage: "linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('/img/ACOM-Guardian_Gorilla-AT-GATE-02.jpg')",
+        backgroundPosition: backgroundPosition,
+      }}
+    >
       <div className="hero-content text-center z-20">
         <h1 className="text-6xl mb-5 text-white font-bold shadow-lg animate-fadeInUp">Guardian Gorilla</h1>
         <p className="text-xl mb-8 text-white shadow-md animate-fadeInUp">Protector of the ACOMUnity DAO</p>
