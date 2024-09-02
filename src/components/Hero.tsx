@@ -1,7 +1,7 @@
-// components/Hero.tsx
-'use client';  // Add this at the top of the file
+'use client';
 
 import React, { useEffect } from 'react';
+import Image from 'next/image'; 
 
 const Hero: React.FC = () => {
   useEffect(() => {
@@ -33,7 +33,13 @@ const Hero: React.FC = () => {
         <p className="text-xl mb-8 text-white shadow-md animate-fadeInUp">Protector of the ACOMUnity DAO</p>
         <a href="#about" className="cta-button inline-block py-3 px-6 bg-green-600 text-white font-bold rounded-lg transition-all hover:bg-green-700 hover:transform hover:translate-y-[-3px] shadow-md animate-fadeInUp">Discover My Mission</a>
       </div>
-      <img src="/img/ACOM-Guardian_Gorilla-AT-GATE-05.jpg" alt="Futuristic gorilla with digital armor and visor" className="floating-image absolute top-1/2 right-[-150px] transform translate-y-[-50%] w-72 h-auto animate-floatLeftRight" />
+      <Image 
+        src="/img/ACOM-Guardian_Gorilla-AT-GATE-05.jpg" 
+        alt="Futuristic gorilla with digital armor and visor"
+        className="floating-image absolute top-1/2 right-[-150px] transform translate-y-[-50%] w-72 h-auto animate-floatLeftRight"
+        width={300}
+        height={200}
+      />
     </section>
   );
 };
